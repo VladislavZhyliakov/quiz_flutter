@@ -2,32 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/home_page.dart';
 import 'package:quiz_app/questions.dart';
 
-class Quiz extends StatefulWidget{
+class Quiz extends StatefulWidget {
   const Quiz({super.key});
 
   @override
-  State<Quiz> createState(){
+  State<Quiz> createState() {
     return _QuizState();
   }
 }
 
-class _QuizState extends State<Quiz>{
-  Widget? activePage;
+class _QuizState extends State<Quiz> {
+  var activePage = 'home-page';
 
-  @override
-  void initState() {
-    activePage = HomePage(switchPage);
-    super.initState();
-  }
-
-  void switchPage(){
+  void switchPage() {
     setState(() {
-      activePage = const QuestionsPage();
+      activePage = 'questions-page';
     });
   }
 
   @override
-  Widget build(context){
+  Widget build(context) {
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -36,7 +30,9 @@ class _QuizState extends State<Quiz>{
             Colors.deepPurple,
             Colors.purpleAccent,
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-          child: activePage,
+          child: activePage == 'home-page'
+              ? HomePage(switchPage)
+              : const QuestionsPage(),
         ),
       ),
     );
