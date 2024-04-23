@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/styled_text.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage(this.startQuiz, {super.key});
+
+  final void Function() startQuiz;
 
   @override
   Widget build(context) {
@@ -19,7 +21,7 @@ class HomePage extends StatelessWidget {
           const StyledText('Learn Flutter the fun way!', 24),
           const SizedBox(height: 30),
           OutlinedButton.icon(
-            onPressed: () {},
+            onPressed: startQuiz,
             icon: const Icon(
               Icons.arrow_right_alt,
               color: Colors.white,
