@@ -13,13 +13,18 @@ class HomePage extends StatelessWidget {
           Image.asset(
             'assets/images/quiz-logo.png',
             width: 300,
+            color: const Color.fromARGB(150, 255, 255, 255),
           ),
-          const SizedBox(height: 65),
-          const StyledText('Learn Flutter the fun way!', 30),
-          const SizedBox(height: 65),
-          OutlinedButton(
+          const SizedBox(height: 80),
+          const StyledText('Learn Flutter the fun way!', 24),
+          const SizedBox(height: 30),
+          OutlinedButton.icon(
             onPressed: () {},
-            child: const StyledText('Start Quiz', 15),
+            icon: const Icon(
+              Icons.arrow_right_alt,
+              color: Colors.white,
+            ),
+            label: const StyledText('Start Quiz', 15),
           )
         ],
       ),
