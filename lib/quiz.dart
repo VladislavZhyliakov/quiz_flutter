@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/home_page.dart';
 import 'package:quiz_app/questions.dart';
+import 'package:quiz_app/results_page.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -12,6 +14,8 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+
+  List<String> selectedAnswers = [];
   var activePage = 'home-page';
 
   void switchPage() {
@@ -20,13 +24,36 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void chooseAnswer(String answer){
+    selectedAnswers.add(answer);
+
+    if(selectedAnswers.length == questions.length){
+      setState(() {
+        activePage = 'results-page';
+      });
+    }
+  }
+
+  void retryQuiz() {
+    setState(() {
+      activePage = 'home-page';
+    });
+  }
+
   @override
   Widget build(context) {
     Widget pageWidget = HomePage(switchPage);
 
     if(activePage == 'questions-page'){
-      pageWidget = const QuestionsPage();
+      pageWidget = QuestionsPage(onSelectAnswer: chooseAnswer);
+    } 
+    else if(activePage == 'results-page'){
+      pageWidget = ResultPage(chosenAnswers: selectedAnswers, retryQuiz: retryQuiz);
     }
+    else if(activePage == 'home-page'){
+      pageWidget = HomePage(switchPage);
+      selectedAnswers = [];
+    }  
 
     return MaterialApp(
       home: Scaffold(

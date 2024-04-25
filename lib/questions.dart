@@ -4,7 +4,9 @@ import 'package:quiz_app/styled_question_text.dart';
 import 'package:quiz_app/data/questions.dart';
 
 class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({super.key});
+  const QuestionsPage({super.key, required this.onSelectAnswer});
+
+  final void Function(String answer) onSelectAnswer;
 
   @override
   State<QuestionsPage> createState() {
@@ -15,12 +17,10 @@ class QuestionsPage extends StatefulWidget {
 class _QuestionsPageState extends State<QuestionsPage> {
   int questionIndex = 0;
 
-  void answerQuestion() {
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
     setState(() {
-      if(questionIndex < questions.length - 1)
-      {
-        questionIndex++;
-      }
+      questionIndex++;
     });
   }
 
@@ -39,7 +39,9 @@ class _QuestionsPageState extends State<QuestionsPage> {
             StyledQuestionText(currentQuestion.text, 16),
             const SizedBox(height: 30),
             ...currentQuestion.getShuffledAnswers().map((answer) {
-              return AnswerButton(answer, answerQuestion);
+              return AnswerButton(answer, () {
+                answerQuestion(answer);
+              });
             }),
           ],
         ),
