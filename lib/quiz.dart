@@ -22,6 +22,12 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(context) {
+    Widget pageWidget = HomePage(switchPage);
+
+    if(activePage == 'questions-page'){
+      pageWidget = const QuestionsPage();
+    }
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -30,9 +36,7 @@ class _QuizState extends State<Quiz> {
             Colors.deepPurple,
             Colors.purpleAccent,
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-          child: activePage == 'home-page'
-              ? HomePage(switchPage)
-              : const QuestionsPage(),
+          child: pageWidget,
         ),
       ),
     );
