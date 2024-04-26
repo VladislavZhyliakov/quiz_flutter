@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/questions_summary.dart';
 import 'package:quiz_app/styled_text.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key, required this.chosenAnswers, required this.retryQuiz});
+  const ResultPage(
+      {super.key, required this.chosenAnswers, required this.retryQuiz});
 
-  final List<String> chosenAnswers; 
+  final List<String> chosenAnswers;
   final void Function() retryQuiz;
 
-  List<Map<String, Object>> getSummaryData(){
+  List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
 
-    for(int i = 0; i < chosenAnswers.length; i++){
+    for (int i = 0; i < chosenAnswers.length; i++) {
       summary.add({
         'question_index': i,
         'question': questions[i].text,
@@ -39,14 +41,28 @@ class ResultPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            StyledText('You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!', 30),
+            Text(
+              'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
+              style: GoogleFonts.lato(
+                  color: const Color.fromARGB(255, 218, 137, 239),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 30),
             QuestionsSummary(summaryData),
             const SizedBox(height: 30),
-            TextButton(onPressed: retryQuiz, child: const StyledText('Restart Quiz!', 20))
+            TextButton.icon(
+                icon: const Icon(
+                  Icons.restart_alt,
+                  size: 40,
+                  color: Color.fromARGB(255, 211, 172, 204),
+                ),
+                onPressed: retryQuiz,
+                label: const StyledText('Restart Quiz!', 20))
           ],
-        )
-      )
+        ),
+      ),
     );
   }
 }
