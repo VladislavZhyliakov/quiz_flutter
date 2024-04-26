@@ -54,7 +54,7 @@ class ResultPage extends StatelessWidget {
             const SizedBox(height: 30),
             TextButton.icon(
                 icon: const Icon(
-                  Icons.restart_alt,
+                  Icons.refresh,
                   size: 40,
                   color: Color.fromARGB(255, 211, 172, 204),
                 ),
